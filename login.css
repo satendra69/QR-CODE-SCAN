@@ -1,0 +1,155 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Full Screen Layout */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    width: 800px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); */
+}
+
+/* Left Side Image */
+.left-side {
+    flex: 1;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #fff;
+}
+
+/* Right Side Form */
+.right-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+/* Login Box */
+.login-box {
+    text-align: center;
+    width: 80%;
+}
+
+/* Logo */
+.logo {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+/* Heading */
+h2 {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+	font-size: 22px;
+}
+
+/* Input Fields */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Password Field */
+.password-field {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+}
+
+/* Placeholder */
+input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* Focus Effects */
+input:focus, select:focus {
+    border-color: #764ba2;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    background: cornflowerblue;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+	margin-top: 10px;
+}
+
+/* Button Hover */
+button:hover {
+    background: #85b1ff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+    }
+
+    .left-side {
+        display: none;
+    }
+
+    .right-side {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .login-box {
+        width: 100%;
+    }
+}

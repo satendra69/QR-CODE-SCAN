@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #reader {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: none; /* Initially hidden */
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+        .btn {
+            padding: 12px 20px;
+            background: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .btn-stop {
+            background: #db4437;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Scanner</h1>
+
+    <button id="startBtn" class="btn">Start Scanner</button>
+    <button id="stopBtn" class="btn btn-stop" style="display: none;">Stop Scanner</button>
+    
+    <div id="reader"></div>
+
+    <div id="result">Scan result will appear here...</div>
+
+    <script>
+        let scanner = null;
+
+        function startScanner() {
+            const readerDiv = document.getElementById("reader");
+            const resultDiv = document.getElementById("result");
+            const startBtn = document.getElementById("startBtn");
+            const stopBtn = document.getElementById("stopBtn");
+
+            readerDiv.style.display = "block"; // Show scanner
+            startBtn.style.display = "none"; // Hide start button
+            stopBtn.style.display = "inline-block"; // Show stop button
+
+            scanner = new Html5Qrcode("reader");
+
+            scanner.start(
+                { facingMode: "environment" }, // Prefer back camera
+                { fps: 10, qrbox: 250 },
+                (decodedText) => {
+                    resultDiv.innerHTML = `<strong>Scanned:</strong> ${decodedText}`;
+                    if (navigator.vibrate) navigator.vibrate(200); // Vibrate on scan
+                    stopScanner(); // Stop scanner after scan
+                },
+                (error) => { console.warn(error); } // Handle errors
+            ).catch(err => {
+                resultDiv.innerHTML = `<span style="color:red">Error: ${err}</span>`;
+                console.error("Scanner error:", err);
+            });
+        }
+
+        function stopScanner() {
+            if (scanner) {
+                scanner.stop().then(() => {
+                    document.getElementById("reader").style.display = "none"; // Hide scanner
+                    document.getElementById("startBtn").style.display = "inline-block"; // Show start button
+                    document.getElementById("stopBtn").style.display = "none"; // Hide stop button
+                }).catch(err => console.error("Stop error:", err));
+            }
+        }
+
+        document.getElementById("startBtn").addEventListener("click", startScanner);
+        document.getElementById("stopBtn").addEventListener("click", stopScanner);
+    </script>
+</body>
+</html>
